@@ -8,7 +8,10 @@ geth --datadir ~/Blockchain/test-net init ~/Blockchain/test-net/genesis.json
 ### geth 실행
 geth --networkid 10 --nodiscover --datadir ~/Blockchain/test-net console 2>> ~/Blockchain/test-net/geth.log
 #### 외부 접속 가능하게 geth 실행
-geth --networkid 10 --rpc --rpcaddr "0.0.0.0" --rpcport 8545 --rpcvhosts=myks790.iptime.org --rpccorsdomain "*" --rpcapi "admin, db, eth, debug, miner, net, shh, txpool, personal, web3" --nodiscover --datadir ~/Blockchain/test-net console 2>> ~/Blockchain/test-net/geth.log
+geth --networkid 10 --rpc --rpcaddr "0.0.0.0" --rpcport 8545 --rpcvhosts=localhost --rpccorsdomain "*" --rpcapi "admin, db, eth, debug, miner, net, shh, txpool, personal, web3" --nodiscover --datadir ~/Blockchain/test-net console 2>> ~/Blockchain/test-net/geth.log
+#### 로컬호스트에서 미스트 접속용 geth실행
+geth --ipcpath ~/Blockchain/geth.ipc --networkid 10 --nodiscover --datadir ~/Blockchain/test-net console 2>> ~/Blockchain/test-net/geth.log
+
 #### 외부 접속
 geth attach rpc:http://myks790.iptime.org:18545
 #### 주요 옵션 설명
@@ -46,7 +49,9 @@ https://github.com/ethereum/go-ethereum/wiki/JavaScript-Console
 https://github.com/ethereum/mist/releases
 ## 미스트 월릿으로 원격 접속하기
 "/Applications/Ethreum Wallet.app/Contents/MacOS/Ethereum Wallet" --rpc http://myks790.iptime.org:18545
-/Applications/Ethereum\ Wallet.app/Contents/MacOS/Ethereum\ Wallet --rpc http://myks790.iptime.org:18545
+/Applications/Ethereum\ Wallet.app/Contents/MacOS/Ethereum\ Wallet --rpc http://localhost.org:18545
+### 미스트 월릿 geth와 동기화(네트워크 구성 후 ipc로 연결해야 실시간으로 동기화 )
+/Applications/Ethereum\ Wallet.app/Contents/MacOS/Ethereum\ Wallet --rpc ~/Blockchain/geth.ipc
 
 ## 에러 해결법
 ###out of memory가 발생할 때
@@ -56,3 +61,11 @@ https://github.com/ethereum/mist/releases
 https://chainskills.com/2017/02/24/create-a-private-ethereum-blockchain-with-iot-devices-16/
 
 ### !!!라즈베리파이에서는 채굴이 안됨!!!
+
+
+# private network cluster
+http://blockchaindev.kr/models/content/88
+## enode 확인
+admin.nodeInfo.enode
+## node등록
+admin.addPeer("enode:~~~")
